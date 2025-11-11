@@ -219,6 +219,10 @@ void LegacyPlatform::getEvents()
 
 void LegacyPlatform::printHeader()
 {
+    if (m_csv) {
+        printDateForCSV(Header2);
+    }
+
     cout << "Skt";
     if (!m_csv)
         cout << ' ';
@@ -272,8 +276,10 @@ void LegacyPlatform::printSocketScopeEvents(uint skt, eventFilter filter)
     if (!m_csv) {
         int ident = (int)strlen("Skt |") / 2;
         cout << setw(ident) << skt << setw(ident) << ' ';
-    } else
+    } else {
+        printDateForCSV(Data);
         cout << skt;
+    }
 
     for(uint idx = 0; idx < eventNames.size(); ++idx)
         printSocketScopeEvent(skt, filter, idx);
